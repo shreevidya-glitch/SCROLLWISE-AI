@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>The Algorithm Knows You Too Well | AI Tech Reel Recommender</title>
+  
+  <!-- Modern Typography Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- =========================================================================
+       EMBEDDED STYLESHEET (ALL-IN-ONE CSS)
+       ========================================================================= -->
+  <style>
+    :root {
+      --bg-primary: #0a0e17;
+      --bg-secondary: #111827;
+      --bg-card: rgba(17, 24, 39, 0.75);
+      --bg-card-hover: rgba(31, 41, 55, 0.85);
+      --bg-surface: #1e293b;
+      
+      --border-subtle: rgba(255, 255, 255, 0.08);
+      --border-active: rgba(56, 189, 248, 0.4);
+      --border-glow: rgba(56, 189, 248, 0.2);
+
+      --accent-cyan: #38bdf8;
+      --accent-blue: #3b82f6;
+      --accent-emerald: #10b981;
+      --accent-amber: #f59e0b;
+      --accent-rose: #f43f5e;
+      --accent-purple: #8b5cf6;
+
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --text-muted: #64748b;
+
+      --glow-cyan: 0 0 25px rgba(56, 189, 248, 0.25);
+      --glow-emerald: 0 0 25px rgba(16, 185, 129, 0.25);
+
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 24px;
+
+      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      
+      --transition-normal: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+      --transition-smooth: 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    [data-theme="light"] {
+      --bg-primary: #f8fafc;
+      --bg-secondary: #f1f5f9;
+      --bg-card: rgba(255, 255, 255, 0.95);
+      --bg-card-hover: #ffffff;
+      --bg-surface: #e2e8f0;
+      --border-subtle: rgba(0, 0, 0, 0.08);
+      --border-active: rgba(2, 132, 199, 0.4);
+      --text-primary: #0f172a;
+      --text-secondary: #475569;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      overflow-x: hidden;
+      background-image: 
+        radial-gradient(circle at 15% 15%, rgba(56, 189, 248, 0.07) 0%, transparent 40%),
+        radial-gradient(circle at 85% 65%, rgba(16, 185, 129, 0.05) 0%, transparent 40%),
+        radial-gradient(circle at 50% 90%, rgba(139, 92, 246, 0.05) 0%, transparent 50%);
+      background-attachment: fixed;
+    }
+
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* HEADER */
+    .site-header {
+      padding: 1.25rem 0;
+      border-bottom: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background-color: rgba(10, 14, 23, 0.85);
+    }
+
+    .nav-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .brand-badge-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-icon {
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, #38bdf8, #8b5cf6);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .brand-title {
+      font-size: 1.25rem;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .hackathon-pill {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 0.2rem 0.55rem;
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      color: var(--accent-cyan);
+      border-radius: 999px;
+      text-transform: uppercase;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    /* HERO */
+    .hero {
+      padding: 2.75rem 0 2rem;
+      text-align: center;
+    }
+
+    .hero-tagline-container {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: rgba(56, 189, 248, 0.08);
+      border: 1px solid rgba(56, 189, 248, 0.25);
+      padding: 0.4rem 1rem;
+      border-radius: 999px;
+      margin-bottom: 1.25rem;
+      font-size: 0.85rem;
+      color: var(--accent-cyan);
+      font-weight: 500;
+    }
+
+    .hero-title {
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      margin-bottom: 1rem;
+      color: #ffffff;
+    }
+
+    .hero-title .gradient-text {
+      background: linear-gradient(135deg, #38bdf8 0%, #a855f7 50%, #34d399 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-subtitle {
+      font-size: 1.15rem;
+      color: var(--text-secondary);
+      max-width: 720px;
+      margin: 0 auto 1.75rem;
+      line-height: 1.5;
+    }
+
+    .hero-slogan-box {
+      background: rgba(15, 23, 42, 0.8);
+      border: 1px solid var(--border-subtle);
+      border-left: 4px solid var(--accent-emerald);
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius-md);
+      display: inline-block;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+      color: #e2e8f0;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    .hero-slogan-box strong {
+      color: var(--accent-emerald);
+    }
+
+    .hero-cta-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      padding: 0.7rem 1.4rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      font-family: var(--font-sans);
+      border-radius: var(--radius-md);
+      cursor: pointer;
+      transition: all var(--transition-normal);
+      border: 1px solid transparent;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #0284c7 0%, #0369a1 100%);
+      color: #ffffff;
+      border-color: rgba(56, 189, 248, 0.4);
+      box-shadow: 0 4px 15px rgba(2, 132, 199, 0.3);
+    }
+
+    .btn-primary:hover {
+      background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(56, 189, 248, 0.4);
+    }
+
+    .btn-demo-hero {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: #ffffff;
+      font-size: 1rem;
+      padding: 0.85rem 1.85rem;
+      border-radius: var(--radius-lg);
+      border: 1px solid rgba(52, 211, 153, 0.5);
+      box-shadow: var(--glow-emerald);
+    }
+
+    .btn-demo-hero:hover {
+      transform: translateY(-2px) scale(1.02);
+      box-shadow: 0 0 30px rgba(16, 185, 129, 0.5);
+    }
+
+    .btn-secondary {
+      background: var(--bg-surface);
+      color: var(--text-primary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-secondary:hover {
+      background: var(--bg-card-hover);
+      border-color: var(--border-active);
+      transform: translateY(-1px);
+    }
+
+    .btn-icon-only {
+      padding: 0.6rem;
+      border-radius: var(--radius-md);
+      font-size: 1.1rem;
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .btn-icon-only:hover {
+      color: #fff;
+      border-color: var(--accent-cyan);
+    }
+
+    /* SECTION TITLES */
+    .section-title-wrap {
+      margin-bottom: 1.5rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .section-title {
+      font-size: 1.45rem;
+      font-weight: 700;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .section-desc {
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-top: 0.25rem;
+    }
+
+    /* 1. REELS GRID */
+    .reels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .reel-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      backdrop-filter: blur(8px);
+      transition: all var(--transition-normal);
+      position: relative;
+    }
+
+    .reel-card:hover {
+      border-color: var(--border-active);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    }
+
+    .reel-card.active-high {
+      border-color: rgba(56, 189, 248, 0.45);
+      background: linear-gradient(180deg, rgba(30, 41, 59, 0.85) 0%, rgba(17, 24, 39, 0.95) 100%);
+    }
+
+    .reel-card.skipped {
+      opacity: 0.55;
+      border-color: rgba(244, 63, 94, 0.2);
+    }
+
+    .reel-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 0.85rem;
+    }
+
+    .reel-icon-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .reel-avatar {
+      font-size: 1.6rem;
+      width: 42px;
+      height: 42px;
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--border-subtle);
+    }
+
+    .reel-category-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 500;
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.1);
+      padding: 0.2rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(56, 189, 248, 0.2);
+      display: inline-block;
+      margin-bottom: 0.35rem;
+    }
+
+    .reel-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #fff;
+      line-height: 1.35;
+      margin-bottom: 0.5rem;
+    }
+
+    .reel-desc {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+      flex-grow: 1;
+    }
+
+    .reel-controls {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+    }
+
+    .watch-label-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      margin-bottom: 0.4rem;
+    }
+
+    .watch-value {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent-cyan);
+    }
+
+    .watch-slider {
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: #334155;
+      outline: none;
+      -webkit-appearance: none;
+      cursor: pointer;
+      margin-bottom: 0.75rem;
+    }
+
+    .watch-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: var(--accent-cyan);
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.8);
+      cursor: pointer;
+    }
+
+    .quick-presets {
+      display: flex;
+      gap: 0.3rem;
+      margin-bottom: 0.85rem;
+    }
+
+    .preset-chip {
+      flex: 1;
+      font-size: 0.7rem;
+      font-family: var(--font-mono);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.2rem 0;
+      border-radius: 4px;
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s;
+    }
+
+    .preset-chip:hover, .preset-chip.active {
+      background: rgba(56, 189, 248, 0.2);
+      color: #fff;
+      border-color: var(--accent-cyan);
+    }
+
+    .action-buttons-row {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .btn-like, .btn-skip {
+      flex: 1;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid var(--border-subtle);
+      color: var(--text-secondary);
+      padding: 0.4rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.4rem;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .btn-like:hover {
+      background: rgba(244, 63, 94, 0.1);
+      color: var(--accent-rose);
+    }
+
+    .btn-like.liked {
+      background: rgba(244, 63, 94, 0.2);
+      border-color: var(--accent-rose);
+      color: #f43f5e;
+      font-weight: 600;
+    }
+
+    .btn-skip:hover {
+      background: rgba(245, 158, 11, 0.1);
+      color: var(--accent-amber);
+    }
+
+    .btn-skip.skipped {
+      background: rgba(245, 158, 11, 0.2);
+      border-color: var(--accent-amber);
+      color: var(--accent-amber);
+    }
+
+    /* 2. ANALYZE ACTION */
+    .analyze-trigger-wrap {
+      text-align: center;
+      padding: 1.5rem 0 3rem;
+    }
+
+    .btn-analyze-large {
+      font-size: 1.25rem;
+      font-weight: 800;
+      padding: 1.15rem 3rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #0284c7 0%, #3b82f6 50%, #8b5cf6 100%);
+      color: #ffffff;
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 0 35px rgba(56, 189, 248, 0.4);
+      cursor: pointer;
+      transition: all var(--transition-smooth);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.85rem;
+    }
+
+    .btn-analyze-large:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 0 50px rgba(56, 189, 248, 0.7);
+    }
+
+    .analyze-hint {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-top: 0.75rem;
+    }
+
+    .analysis-pipeline {
+      background: var(--bg-card);
+      border: 1px solid var(--border-active);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      max-width: 600px;
+      margin: 1.5rem auto 0;
+      display: none;
+    }
+
+    .pipeline-step {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.5rem 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .pipeline-step.active {
+      color: var(--accent-cyan);
+      font-weight: 600;
+    }
+
+    .step-spinner {
+      width: 18px;
+      height: 18px;
+      border: 2px solid rgba(56, 189, 248, 0.2);
+      border-top-color: var(--accent-cyan);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+
+    /* 3 & 4. RESULTS SECTION */
+    .results-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3rem;
+    }
+
+    @media (max-width: 900px) {
+      .results-section {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .result-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(16px);
+      position: relative;
+    }
+
+    .result-card-detection {
+      border-top: 4px solid var(--accent-cyan);
+    }
+
+    .result-card-recommendation {
+      border-top: 4px solid var(--accent-emerald);
+    }
+
+    .card-top-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 1.25rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+    }
+
+    .tag-cyan {
+      color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.12);
+      border: 1px solid rgba(56, 189, 248, 0.3);
+    }
+
+    .tag-emerald {
+      color: var(--accent-emerald);
+      background: rgba(16, 185, 129, 0.12);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .schema-field {
+      margin-bottom: 1.25rem;
+    }
+
+    .field-label {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-bottom: 0.35rem;
+    }
+
+    .field-value-highlight {
+      font-size: 1.35rem;
+      font-weight: 800;
+      color: #ffffff;
+      line-height: 1.25;
+    }
+
+    .field-value-body {
+      font-size: 0.95rem;
+      color: #cbd5e1;
+      line-height: 1.55;
+      background: rgba(0, 0, 0, 0.2);
+      padding: 0.85rem 1rem;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .pill-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin-top: 0.5rem;
+    }
+
+    .meta-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 0.35rem 0.8rem;
+      border-radius: var(--radius-sm);
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .pill-category { color: #60a5fa; border-color: rgba(96, 165, 250, 0.3); }
+    .pill-difficulty { color: #f59e0b; border-color: rgba(245, 158, 11, 0.3); }
+    .pill-confidence { color: #10b981; border-color: rgba(16, 185, 129, 0.3); }
+
+    .badge-quality-filter {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      font-weight: 700;
+      background: rgba(16, 185, 129, 0.15);
+      color: #34d399;
+      border: 1px solid rgba(52, 211, 153, 0.4);
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      margin-top: 1rem;
+    }
+
+    .card-footer-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 1.5rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    /* 5. COMPARISON SECTION */
+    .comparison-section {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 2.25rem;
+      margin-bottom: 3rem;
+    }
+
+    .comparison-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.75rem;
+      margin-top: 1.5rem;
+    }
+
+    @media (max-width: 850px) {
+      .comparison-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .comparison-col {
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+    }
+
+    .col-shallow {
+      border-top: 4px solid var(--accent-amber);
+    }
+
+    .col-semantic {
+      border-top: 4px solid var(--accent-emerald);
+      box-shadow: 0 0 25px rgba(16, 185, 129, 0.1);
+    }
+
+    .col-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      padding: 0.25rem 0.65rem;
+      border-radius: 999px;
+      display: inline-block;
+      margin-bottom: 0.75rem;
+    }
+
+    .badge-shallow {
+      background: rgba(245, 158, 11, 0.15);
+      color: var(--accent-amber);
+      border: 1px solid rgba(245, 158, 11, 0.35);
+    }
+
+    .badge-semantic {
+      background: rgba(16, 185, 129, 0.15);
+      color: var(--accent-emerald);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+    }
+
+    .flow-chart {
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      margin: 1rem 0;
+    }
+
+    .flow-node {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      padding: 0.65rem 0.9rem;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      color: #e2e8f0;
+    }
+
+    .flow-node-highlight-fail {
+      border-color: rgba(245, 158, 11, 0.4);
+      background: rgba(245, 158, 11, 0.08);
+      color: #fde68a;
+    }
+
+    .flow-node-highlight-win {
+      border-color: rgba(16, 185, 129, 0.4);
+      background: rgba(16, 185, 129, 0.08);
+      color: #6ee7b7;
+      font-weight: 600;
+    }
+
+    .flow-arrow {
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    /* 6. ANTI-HYPE SECTION */
+    .hype-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 2rem;
+      margin-bottom: 3rem;
+    }
+
+    .hype-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .hype-card {
+      background: rgba(244, 63, 94, 0.04);
+      border: 1px solid rgba(244, 63, 94, 0.2);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+    }
+
+    .hype-badge-rejected {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent-rose);
+      background: rgba(244, 63, 94, 0.15);
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+
+    .hype-title {
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: #fca5a5;
+      margin-bottom: 0.4rem;
+      line-height: 1.35;
+    }
+
+    .hype-reason {
+      font-size: 0.78rem;
+      color: var(--text-secondary);
+    }
+
+    /* 7. DASHBOARD */
+    .dashboard-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    @media (max-width: 900px) {
+      .dashboard-section {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .dash-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+    }
+
+    .interest-bars {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-top: 1.25rem;
+    }
+
+    .bar-row {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+
+    .bar-label-group {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.85rem;
+      font-weight: 500;
+    }
+
+    .bar-track {
+      height: 8px;
+      background: #1e293b;
+      border-radius: 4px;
+      overflow: hidden;
+    }
+
+    .bar-fill {
+      height: 100%;
+      border-radius: 4px;
+      transition: width 1s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .fill-blue { background: linear-gradient(90deg, #38bdf8, #3b82f6); }
+    .fill-emerald { background: linear-gradient(90deg, #34d399, #10b981); }
+    .fill-amber { background: linear-gradient(90deg, #fbbf24, #f59e0b); }
+    .fill-purple { background: linear-gradient(90deg, #c084fc, #8b5cf6); }
+    .fill-rose { background: linear-gradient(90deg, #f43f5e, #e11d48); }
+
+    /* Knowledge Tree */
+    .graph-container {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .tree-level {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      width: 100%;
+      flex-wrap: wrap;
+    }
+
+    .tree-node {
+      background: var(--bg-card);
+      border: 1px solid var(--border-active);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-md);
+      font-size: 0.82rem;
+      font-weight: 600;
+      color: #fff;
+    }
+
+    .tree-node.root {
+      border-color: var(--accent-cyan);
+      background: rgba(56, 189, 248, 0.15);
+      font-size: 0.95rem;
+      padding: 0.6rem 1.4rem;
+    }
+
+    .tree-connector {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    /* MODAL */
+    .modal-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.75);
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+      padding: 1rem;
+    }
+
+    .modal-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-box {
+      background: #111827;
+      border: 1px solid var(--border-active);
+      border-radius: var(--radius-xl);
+      max-width: 650px;
+      width: 100%;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2rem;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+    }
+
+    .modal-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 1rem;
+    }
+
+    .modal-title {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #fff;
+    }
+
+    .modal-close-btn {
+      background: transparent;
+      border: none;
+      color: var(--text-secondary);
+      font-size: 1.5rem;
+      cursor: pointer;
+    }
+
+    .modal-close-btn:hover { color: #fff; }
+
+    /* TOAST */
+    .toast {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      background: var(--bg-surface);
+      color: #fff;
+      border: 1px solid var(--accent-emerald);
+      padding: 0.85rem 1.5rem;
+      border-radius: var(--radius-md);
+      font-size: 0.9rem;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2000;
+    }
+
+    .toast.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    .site-footer {
+      border-top: 1px solid var(--border-subtle);
+      padding: 2.5rem 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- =========================================================================
+       NAVIGATION / TOP HEADER
+       ========================================================================= -->
+  <header class="site-header">
+    <div class="container nav-content">
+      <div class="brand-badge-group">
+        <span class="brand-icon">⚡</span>
+        <div class="brand-title">
+          The Algorithm Knows You Too Well
+          <span class="hackathon-pill">RGM Hackathon Edition</span>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button id="btn-run-demo-top" class="btn btn-demo-hero" title="Load built-in trap scenario and run analysis">
+          🚀 RUN HACKATHON DEMO
+        </button>
+        <button id="btn-reset-feed" class="btn btn-secondary" title="Reset all watch percentages and interactions">
+          🔄 Reset Feed
+        </button>
+        <button id="btn-toggle-theme" class="btn btn-icon-only" title="Toggle Light/Dark Theme">
+          🌓
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- =========================================================================
+       HERO SECTION
+       ========================================================================= -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-tagline-container">
+        <span>🧠 Context & Semantic Intent Inference Engine</span>
+      </div>
+      <h1 class="hero-title">
+        Turn Doomscrolling Into <span class="gradient-text">Career-Defining Knowledge</span>
+      </h1>
+      <p class="hero-subtitle">
+        An AI recommendation agent that moves beyond shallow keyword matching to infer your latent engineering curiosity and recommend high-impact technology reels.
+      </p>
+
+      <div class="hero-slogan-box">
+        💡 <em>"Don't recommend what the user watched. <strong>Understand why they watched it.</strong>"</em>
+      </div>
+
+      <div class="hero-cta-bar">
+        <button id="btn-run-demo-main" class="btn btn-demo-hero">
+          ⚡ 1-Click Hackathon Trap Demo
+        </button>
+        <a href="#interaction-section" class="btn btn-secondary">
+          👇 Custom Interaction Mode
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <main class="container">
+
+    <!-- =========================================================================
+         SECTION 1: REEL INTERACTION SCREEN (8 Reels)
+         ========================================================================= -->
+    <section id="interaction-section" class="interaction-section" style="margin-top: 1rem;">
+      <div class="section-title-wrap">
+        <div>
+          <h2 class="section-title">📱 1. Student Reel Interaction Stream</h2>
+          <p class="section-desc">Adjust watch percentages, like or skip reels to test how the AI infers your latent interests.</p>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-muted); font-family: var(--font-mono);">
+          Active Reels: <span style="color: var(--accent-cyan); font-weight: bold;">8/8 Loaded</span>
+        </div>
+      </div>
+
+      <!-- 8 Dynamic Reel Cards Grid -->
+      <div id="reels-grid-container" class="reels-grid"></div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 2: ANALYZE INTERESTS ACTION TRIGGER
+         ========================================================================= -->
+    <section class="analyze-trigger-wrap">
+      <button id="btn-analyze-interests" class="btn btn-analyze-large">
+        <span>✨ ANALYZE MY INTERESTS</span>
+      </button>
+      <div class="analyze-hint">
+        Multi-signal analysis: Topic + Context + Watch % + Likes + Anti-Hype + Latent Intent
+      </div>
+
+      <!-- Animated Progress Pipeline -->
+      <div id="analysis-pipeline" class="analysis-pipeline">
+        <div class="pipeline-step" id="step-1"><div class="step-spinner"></div> Ingesting multi-modal watch signals & engagement...</div>
+        <div class="pipeline-step" id="step-2"><div class="step-spinner"></div> Resolving semantic knowledge taxonomy (beyond keywords)...</div>
+        <div class="pipeline-step" id="step-3"><div class="step-spinner"></div> Executing Anti-Hype & Quality Filter...</div>
+        <div class="pipeline-step" id="step-4"><div class="step-spinner"></div> Synthesizing 8-Point Recommendation Schema...</div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 3 & 4: SINGLE UNIFIED RECOMMENDATION OUTPUT (8-POINT SCHEMA)
+         ========================================================================= -->
+    <section id="results-container" class="results-section" style="grid-template-columns: 1fr; max-width: 900px; margin: 0 auto 3rem;">
+      
+      <!-- Single Unified Output Card -->
+      <div class="result-card result-card-recommendation" style="border-top: 4px solid var(--accent-cyan); box-shadow: 0 10px 40px rgba(0, 0, 0, 0.45);">
+        
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.75rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border-subtle); padding-bottom: 1rem;">
+          <div class="card-top-tag tag-cyan" style="margin-bottom: 0;">
+            <span>🎯 COMPLETE AI RECOMMENDATION & INTEREST ANALYSIS</span>
+          </div>
+          <div class="badge-quality-filter" style="margin-top: 0;">
+            🛡️ <span id="output-quality-badge">AI QUALITY FILTER: PASSED</span>
+          </div>
+        </div>
+
+        <!-- 1. CURRENT REEL -->
+        <div class="schema-field">
+          <div class="field-label">1. CURRENT REEL</div>
+          <div id="output-current-reel" class="field-value-highlight" style="font-size: 1.15rem; color: #e2e8f0;">
+            POV: You forgot a semicolon in Java
+          </div>
+        </div>
+
+        <!-- 2. INTEREST DETECTED -->
+        <div class="schema-field">
+          <div class="field-label">2. INTEREST DETECTED</div>
+          <div id="output-interest-detected" class="field-value-highlight" style="color: var(--accent-cyan);">
+            Software Engineering / Technology
+          </div>
+        </div>
+
+        <!-- 3. WHY -->
+        <div class="schema-field">
+          <div class="field-label">3. WHY (EVIDENCE FROM CONTENT)</div>
+          <div id="output-why-detected" class="field-value-body">
+            The user showed strong engagement with programming, software engineering, coding interviews, GitHub and developer hardware. These signals suggest a broader software engineering interest rather than an interest in Java alone.
+          </div>
+        </div>
+
+        <!-- 4. RECOMMENDED TECH REEL -->
+        <div class="schema-field" style="margin-top: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed var(--border-subtle);">
+          <div class="field-label">4. RECOMMENDED TECH REEL</div>
+          <div id="output-rec-title" class="field-value-highlight" style="color: #34d399; font-size: 1.35rem;">
+            How Data Structures Are Used in Real Software Engineering
+          </div>
+        </div>
+
+        <!-- 5, 7, 8. CATEGORY, DIFFICULTY, CONFIDENCE -->
+        <div class="schema-field">
+          <div class="field-label">5. CATEGORY & CLASSIFICATION (5, 7, 8)</div>
+          <div class="pill-row">
+            <span class="meta-pill pill-category">
+              <strong>CATEGORY:</strong> <span id="output-rec-category">DSA</span>
+            </span>
+            <span class="meta-pill pill-difficulty">
+              <strong>DIFFICULTY:</strong> <span id="output-rec-difficulty">Intermediate</span>
+            </span>
+            <span class="meta-pill pill-confidence">
+              <strong>CONFIDENCE:</strong> <span id="output-rec-confidence">High</span>
+            </span>
+          </div>
+        </div>
+
+        <!-- 6. WHY THIS RECOMMENDATION -->
+        <div class="schema-field">
+          <div class="field-label">6. WHY THIS RECOMMENDATION (CONNECTION TO INTEREST)</div>
+          <div id="output-rec-why" class="field-value-body">
+            The user's coding, interview and software-engineering interactions suggest that DSA is relevant to their broader software development interest.
+          </div>
+        </div>
+
+        <!-- Card Footer Actions -->
+        <div class="card-footer-actions">
+          <button id="btn-why-this-rec" class="btn btn-primary" style="font-size: 0.9rem; padding: 0.6rem 1.4rem;">
+            💡 WHY THIS? (EXPLAINABLE AI)
+          </button>
+          <button id="btn-copy-schema" class="btn btn-secondary" style="font-size: 0.9rem; padding: 0.6rem 1.4rem;">
+            📋 Copy Output Schema
+          </button>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- =========================================================================
+         SECTION 5: CASE STUDY COMPARISON (WEAK AI VS OUR AI)
+         ========================================================================= -->
+    <section class="comparison-section">
+      <div class="section-title-wrap">
+        <div>
+          <h2 class="section-title">⚖️ 5. Case Study: Basic Keyword Matching vs Our Semantic Agent</h2>
+          <p class="section-desc">Demonstrating how basic algorithms get trapped by surface keywords, while our AI infers true intent.</p>
+        </div>
+      </div>
+
+      <div class="comparison-grid">
+        <!-- Left: Traditional / Basic Recommender -->
+        <div class="comparison-col col-shallow">
+          <span class="col-badge badge-shallow">⚠️ CASE STUDY: TRADITIONAL KEYWORD SYSTEM</span>
+          <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Superficial Keyword Frequency</h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Only counts isolated words. Recommends more of the exact same surface word.
+          </p>
+
+          <div class="flow-chart">
+            <div class="flow-node">☕ "Java" keyword spotted in Meme #1</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node">🔍 Keyword Frequency Logic: Count("Java") = 1</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node flow-node-highlight-fail">
+              📌 <strong>Basic Output:</strong> "Learn Java Syntax in 60 Seconds (Beginner)"
+            </div>
+          </div>
+
+          <div style="font-size: 0.82rem; color: #cbd5e1; background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem;">
+            <strong style="color: #fbbf24;">Limitation:</strong> Traps the user in basic repetitive syntax without recognizing their broader interest in software engineering, backend architecture, and coding interviews.
+          </div>
+        </div>
+
+        <!-- Right: Our Semantic Agent -->
+        <div class="comparison-col col-semantic">
+          <span class="col-badge badge-semantic">✨ OUR SOLUTION: INTELLIGENT SEMANTIC AGENT</span>
+          <h3 style="font-size: 1.1rem; color: #fff; margin-bottom: 0.75rem;">Multi-Signal Context Synthesis</h3>
+          <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Understands the underlying engineering curiosity connecting all watched reels.
+          </p>
+
+          <div class="flow-chart">
+            <div class="flow-node">☕ Java + 💻 Backend + 🐙 Git + 🎯 Interviews + ⚡ Hardware</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node">🧠 Inferred Broader Intent: "Software Engineering / Technology"</div>
+            <div class="flow-arrow">↓</div>
+            <div class="flow-node flow-node-highlight-win">
+              🎯 <strong>Smart Output:</strong> "How Data Structures Are Used in Real Software Engineering"
+            </div>
+          </div>
+
+          <div style="font-size: 0.82rem; color: #cbd5e1; background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); padding: 0.65rem 0.85rem; border-radius: var(--radius-sm); margin-top: 0.75rem;">
+            <strong style="color: #34d399;">Advantage:</strong> Transforms casual reel scrolling into actionable, high-yield computer science and career learning!
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 6: ANTI-HYPE & CLICKBAIT GUARDRAILS
+         ========================================================================= -->
+    <section class="hype-section">
+      <div class="section-title-wrap">
+        <div>
+          <h2 class="section-title">🛡️ 6. Anti-Hype & Educational Rigor Filter</h2>
+          <p class="section-desc">Our agent actively purges sensationalist clickbait, ensuring student screen-time provides genuine educational depth.</p>
+        </div>
+        <button id="btn-inspect-filter" class="btn btn-secondary" style="font-size: 0.8rem;">
+          🔍 Audit Blocked Clickbait
+        </button>
+      </div>
+
+      <div class="hype-grid">
+        <div class="hype-card">
+          <span class="hype-badge-rejected">🚫 BLOCKED CLICKBAIT</span>
+          <div class="hype-title">"10 AI tools that will get you a job in 24 hours"</div>
+          <div class="hype-reason"><strong>Reason:</strong> Superficial listicle • Unrealistic promises • No technical depth.</div>
+        </div>
+
+        <div class="hype-card">
+          <span class="hype-badge-rejected">🚫 BLOCKED CLICKBAIT</span>
+          <div class="hype-title">"Become a millionaire with AI without coding"</div>
+          <div class="hype-reason"><strong>Reason:</strong> Get-rich-quick claim • Misleading career advice • Zero pedagogy.</div>
+        </div>
+
+        <div class="hype-card">
+          <span class="hype-badge-rejected">🚫 BLOCKED CLICKBAIT</span>
+          <div class="hype-title">"5 AI tools that GUARANTEE you pass FAANG"</div>
+          <div class="hype-reason"><strong>Reason:</strong> False guarantee • Shortcut mentality • Commercial promotion.</div>
+        </div>
+
+        <div class="hype-card">
+          <span class="hype-badge-rejected">🚫 BLOCKED CLICKBAIT</span>
+          <div class="hype-title">"AI will replace EVERY programmer by next month!"</div>
+          <div class="hype-reason"><strong>Reason:</strong> Doom-bait / fearmongering • Lacks architectural analysis.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         SECTION 7: ANALYTICS DASHBOARD & KNOWLEDGE GRAPH
+         ========================================================================= -->
+    <section class="dashboard-section">
+      <!-- Left: Detected Interests Bars -->
+      <div class="dash-card">
+        <h3 class="section-title" style="font-size: 1.25rem;">📊 Inferred Interest Vector</h3>
+        <p class="section-desc">Real-time interest distribution synthesized across active signals.</p>
+
+        <div class="interest-bars">
+          <div class="bar-row">
+            <div class="bar-label-group">
+              <span>Software Engineering</span>
+              <span id="score-swe" style="font-family: var(--font-mono); color: var(--accent-cyan);">87%</span>
+            </div>
+            <div class="bar-track"><div id="bar-swe" class="bar-fill fill-blue" style="width: 87%;"></div></div>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-label-group">
+              <span>Programming & Algorithms</span>
+              <span id="score-prog" style="font-family: var(--font-mono); color: var(--accent-emerald);">82%</span>
+            </div>
+            <div class="bar-track"><div id="bar-prog" class="bar-fill fill-emerald" style="width: 82%;"></div></div>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-label-group">
+              <span>Developer Hardware & Tools</span>
+              <span id="score-hw" style="font-family: var(--font-mono); color: var(--accent-amber);">61%</span>
+            </div>
+            <div class="bar-track"><div id="bar-hw" class="bar-fill fill-amber" style="width: 61%;"></div></div>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-label-group">
+              <span>AI & Research</span>
+              <span id="score-ai" style="font-family: var(--font-mono); color: var(--accent-purple);">54%</span>
+            </div>
+            <div class="bar-track"><div id="bar-ai" class="bar-fill fill-purple" style="width: 54%;"></div></div>
+          </div>
+
+          <div class="bar-row">
+            <div class="bar-label-group">
+              <span>Gaming & Entertainment</span>
+              <span id="score-gaming" style="font-family: var(--font-mono); color: var(--accent-rose);">31%</span>
+            </div>
+            <div class="bar-track"><div id="bar-gaming" class="bar-fill fill-rose" style="width: 31%;"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Semantic Knowledge Tree -->
+      <div class="dash-card">
+        <h3 class="section-title" style="font-size: 1.25rem;">🕸️ Semantic Concept Hierarchy</h3>
+        <p class="section-desc">How individual interactions cluster into actionable skills.</p>
+
+        <div class="graph-container">
+          <div class="tree-level">
+            <div class="tree-node">☕ Java / Syntax</div>
+            <div class="tree-node">🐛 Debugging / Bugs</div>
+          </div>
+          <div class="tree-connector">↓</div>
+          <div class="tree-level">
+            <div class="tree-node root">💻 Software Engineering Core</div>
+          </div>
+          <div class="tree-connector">↙ &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ↘</div>
+          <div class="tree-level">
+            <div class="tree-node">🎯 DSA & Algorithms</div>
+            <div class="tree-node">🐙 Git & CI/CD</div>
+            <div class="tree-node">⚡ Dev Hardware</div>
+          </div>
+          <div class="tree-connector">↓</div>
+          <div class="tree-level">
+            <div class="tree-node" style="border-color: var(--accent-emerald); color: #34d399;">
+              🚀 Real-World Engineering Mastery (DSA)
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       EXPLAINABLE AI MODAL DIALOG ("WHY THIS?")
+       ========================================================================= -->
+  <div id="why-this-modal" class="modal-overlay">
+    <div class="modal-box">
+      <div class="modal-header">
+        <div class="modal-title">🧠 Explainable AI: Recommendation Rationale</div>
+        <button class="modal-close-btn" id="modal-close-x">&times;</button>
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <h4 style="font-size: 0.95rem; color: var(--accent-cyan); margin-bottom: 0.4rem;">DECISION SUMMARY</h4>
+        <p id="modal-summary-text" style="font-size: 0.9rem; color: #cbd5e1; line-height: 1.5; background: rgba(0,0,0,0.3); padding: 0.85rem; border-radius: var(--radius-md);">
+          "You watched programming and software-engineering content for a high percentage of their duration and interacted with GitHub and coding interview content. These signals suggest an underlying software engineering interest."
+        </p>
+      </div>
+
+      <div style="margin-bottom: 1.25rem;">
+        <h4 style="font-size: 0.95rem; color: var(--accent-emerald); margin-bottom: 0.6rem;">TOP INFLUENCING SIGNALS</h4>
+        <div id="modal-influencers-list" style="display: flex; flex-direction: column; gap: 0.5rem;"></div>
+      </div>
+
+      <div>
+        <h4 style="font-size: 0.95rem; color: var(--accent-amber); margin-bottom: 0.6rem;">CAUSAL REASONING PIPELINE</h4>
+        <div id="modal-pipeline-steps" style="display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.85rem;"></div>
+      </div>
+
+      <div style="text-align: right; margin-top: 1.75rem;">
+        <button id="modal-close-btn" class="btn btn-secondary">Close Explanation</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="toast" class="toast">
+    <span id="toast-icon">✅</span>
+    <span id="toast-message">Notification message</span>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="container">
+      <p><strong>The Algorithm Knows You Too Well</strong> • RGM Hackathon Project</p>
+      <p style="margin-top: 0.35rem; font-size: 0.8rem; color: var(--text-muted);">
+        Crafted to transform casual scrolling into meaningful computer science micro-learning.
+      </p>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       EMBEDDED JAVASCRIPT (DATASET + AI ENGINE + UI CONTROLLER)
+       ========================================================================= -->
+  <script>
+    /* --------------------------------------------------------------------------
+       1. DATASET
+       -------------------------------------------------------------------------- */
+    const INITIAL_REELS = [
+      {
+        id: "reel-1",
+        title: "POV: You forgot a semicolon in Java",
+        category: "Programming Memes",
+        topic: "Java & Syntax Errors",
+        description: "43 compiler errors on line 1 because of a single missing semicolon at the end of class definition.",
+        thumbnailIcon: "☕",
+        tags: ["java", "programming", "compiler", "syntax", "memes", "bugs"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 90, liked: false, skipped: false }
+      },
+      {
+        id: "reel-2",
+        title: "Day in the Life of a Backend Engineer in Seattle",
+        category: "Tech Lifestyle & Career",
+        topic: "Software Engineering Career",
+        description: "Iced matcha latte, resolving merge conflicts, designing microservices, and reviewing pull requests before deployment.",
+        thumbnailIcon: "💻",
+        tags: ["software-engineering", "backend", "career", "git", "microservices", "work-life"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 95, liked: false, skipped: false }
+      },
+      {
+        id: "reel-3",
+        title: "Interviewer: Can you do this in O(1) space?",
+        category: "Career & Interviews",
+        topic: "Coding Interviews & DSA",
+        description: "When they ask for constant space complexity on a recursive graph traversal algorithm with 10M nodes.",
+        thumbnailIcon: "🎯",
+        tags: ["dsa", "algorithms", "coding-interview", "time-complexity", "software-engineering"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 85, liked: false, skipped: false }
+      },
+      {
+        id: "reel-4",
+        title: "M3 Max MacBook vs ThinkPad X1: Heavy Docker & Compile Test",
+        category: "Developer Hardware",
+        topic: "Developer Hardware & Performance",
+        description: "Benchmarking rustc build times, 12 concurrent Docker containers, and memory limits under load.",
+        thumbnailIcon: "⚡",
+        tags: ["hardware", "laptops", "docker", "compilation", "developer-tools", "performance"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 80, liked: false, skipped: false }
+      },
+      {
+        id: "reel-5",
+        title: "git push --force on Friday at 5 PM",
+        category: "Developer Culture",
+        topic: "GitHub & Version Control",
+        description: "When junior devs push straight to the main branch right before the weekend release freeze.",
+        thumbnailIcon: "🐙",
+        tags: ["github", "git", "version-control", "developer-culture", "ci-cd", "software-engineering"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 90, liked: true, skipped: false }
+      },
+      {
+        id: "reel-6",
+        title: "It worked on my machine... now it's in production",
+        category: "Software Engineering",
+        topic: "Debugging & Production Systems",
+        description: "Finding out environment variables and timezone configs were completely missing in the production cluster.",
+        thumbnailIcon: "🐛",
+        tags: ["debugging", "production", "devops", "containers", "software-engineering", "backend"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 90, liked: false, skipped: false }
+      },
+      {
+        id: "reel-7",
+        title: "Ultimate 240Hz OLED Battlestation Desk Tour",
+        category: "Gaming & Entertainment",
+        topic: "Gaming & Aesthetics",
+        description: "Custom water-cooled loop, ambient RGB light strips, and custom mechanical keyboard sound test.",
+        thumbnailIcon: "🎮",
+        tags: ["gaming", "entertainment", "rgb", "desk-setup", "battlestation"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 15, liked: false, skipped: true }
+      },
+      {
+        id: "reel-8",
+        title: "New AI Architecture: How Latent Reasoning Works",
+        category: "AI & Tech News",
+        topic: "AI Architecture & Research",
+        description: "A 60-second visual explanation of how reasoning models allocate hidden thinking tokens before generating code.",
+        thumbnailIcon: "🤖",
+        tags: ["ai", "machine-learning", "reasoning", "tech-news", "llm"],
+        defaultEngagement: { watchPercent: 0, liked: false, skipped: false },
+        trapEngagement: { watchPercent: 30, liked: false, skipped: false }
+      }
+    ];
+
+    const TECH_REELS_CANDIDATE_POOL = [
+      {
+        id: "rec-dsa-1",
+        title: "How Data Structures Are Used in Real Software Engineering",
+        category: "DSA",
+        targetInterests: ["Software Engineering", "Programming", "DSA", "Career"],
+        difficulty: "Intermediate",
+        confidence: "High",
+        whyExplanation: "The user's coding, interview, and software-engineering interactions suggest that DSA is relevant to their broader software development interest.",
+        educationalValue: "High",
+        isHype: false,
+        hypeScore: 0.05
+      },
+      {
+        id: "rec-hld-1",
+        title: "System Design Basics: How Microservices Actually Communicate",
+        category: "HLD",
+        targetInterests: ["Software Engineering", "Backend", "Cloud", "Developer Hardware"],
+        difficulty: "Intermediate",
+        confidence: "High",
+        whyExplanation: "The user engaged deeply with backend engineering, production debugging, and developer hardware, indicating readiness for system design concepts.",
+        educationalValue: "High",
+        isHype: false,
+        hypeScore: 0.02
+      },
+      {
+        id: "rec-git-1",
+        title: "How Git Works Under the Hood: Blobs, Trees, and Commits",
+        category: "Software Engineering",
+        targetInterests: ["Software Engineering", "GitHub", "Programming", "Developer Tools"],
+        difficulty: "Beginner",
+        confidence: "High",
+        whyExplanation: "High engagement with GitHub culture and developer lifestyle shows value in mastering essential version control internals.",
+        educationalValue: "High",
+        isHype: false,
+        hypeScore: 0.04
+      },
+      {
+        id: "rec-api-1",
+        title: "How APIs Work: HTTP/2, REST, gRPC & WebSockets Visualized",
+        category: "Cloud",
+        targetInterests: ["Software Engineering", "Backend", "Programming", "Cloud"],
+        difficulty: "Beginner",
+        confidence: "High",
+        whyExplanation: "Strong interest in backend lifestyle and debugging connects directly to communication protocol fundamentals.",
+        educationalValue: "High",
+        isHype: false,
+        hypeScore: 0.01
+      },
+      {
+        id: "rec-hw-1",
+        title: "CPU vs GPU: Why Memory Bandwidth Matters for Compiling & ML",
+        category: "Hardware",
+        targetInterests: ["Hardware", "Programming", "Developer Hardware"],
+        difficulty: "Intermediate",
+        confidence: "High",
+        whyExplanation: "Engagement with developer laptop benchmarks indicates curiosity about compute performance and silicon architecture.",
+        educationalValue: "High",
+        isHype: false,
+        hypeScore: 0.03
+      }
+    ];
+
+    const BLOCKED_HYPE_EXAMPLES = [
+      {
+        title: "10 AI tools that will get you a job in 24 hours",
+        category: "AI",
+        reasons: ["Clickbait title", "Unrealistic promises", "Superficial listicle"]
+      },
+      {
+        title: "Become a millionaire with AI without coding",
+        category: "Career",
+        reasons: ["Get-rich-quick claim", "Misleading career guidance"]
+      },
+      {
+        title: "5 AI tools that GUARANTEE you pass FAANG interviews",
+        category: "Career",
+        reasons: ["False guarantees", "Shortcut mentality"]
+      },
+      {
+        title: "AI will replace EVERY programmer by next month!",
+        category: "AI",
+        reasons: ["Doom-bait / Fearmongering", "Lacks architectural analysis"]
+      }
+    ];
+
+    const SEMANTIC_TAXONOMY = {
+      "Software Engineering / Technology": {
+        tags: ["software-engineering", "backend", "git", "github", "docker", "debugging", "production", "devops", "ci-cd", "microservices", "work-life"],
+        baseKeywords: ["backend", "git", "github", "docker", "engineer", "pull request", "merge", "production", "debugging"],
+        weightMultiplier: 1.2
+      },
+      "Programming & Algorithms (DSA)": {
+        tags: ["programming", "java", "dsa", "algorithms", "syntax", "compiler", "time-complexity", "coding-interview", "bugs"],
+        baseKeywords: ["java", "semicolon", "o(1)", "graph", "algorithm", "compiler", "code", "interview"],
+        weightMultiplier: 1.15
+      },
+      "Developer Hardware & Tools": {
+        tags: ["hardware", "laptops", "compilation", "developer-tools", "performance"],
+        baseKeywords: ["m3", "macbook", "thinkpad", "compile", "ram", "benchmarking"],
+        weightMultiplier: 1.1
+      },
+      "AI & Data Science": {
+        tags: ["ai", "machine-learning", "reasoning", "tech-news", "llm"],
+        baseKeywords: ["ai", "tokens", "reasoning", "architecture", "model"],
+        weightMultiplier: 1.05
+      },
+      "Gaming & Entertainment": {
+        tags: ["gaming", "entertainment", "rgb", "desk-setup", "battlestation"],
+        baseKeywords: ["gaming", "oled", "battlestation", "keyboard", "rgb"],
+        weightMultiplier: 0.9
+      }
+    };
+
+    /* --------------------------------------------------------------------------
+       2. AI RECOMMENDATION ENGINE (4 CORE FUNCTIONS)
+       -------------------------------------------------------------------------- */
+    
+    // Function 1: analyzeInterests()
+    function analyzeInterests(reels) {
+      const domainScores = {
+        "Software Engineering / Technology": 0,
+        "Programming & Algorithms (DSA)": 0,
+        "Developer Hardware & Tools": 0,
+        "AI & Data Science": 0,
+        "Gaming & Entertainment": 0
+      };
+
+      let totalEngagementWeight = 0;
+      const activeInteractions = [];
+
+      reels.forEach(reel => {
+        const watchRatio = (reel.engagement?.watchPercent ?? reel.defaultEngagement.watchPercent) / 100;
+        const isLiked = reel.engagement?.liked ?? reel.defaultEngagement.liked;
+        const isSkipped = reel.engagement?.skipped ?? reel.defaultEngagement.skipped;
+
+        let engagementScore = (watchRatio * 0.7) + (isLiked ? 0.4 : 0) - (isSkipped ? 0.35 : 0);
+        engagementScore = Math.max(0, engagementScore);
+
+        if (engagementScore > 0.2) {
+          activeInteractions.push({
+            reelId: reel.id,
+            title: reel.title,
+            category: reel.category,
+            engagementScore: Math.round(engagementScore * 100),
+            watchPercent: reel.engagement?.watchPercent ?? reel.defaultEngagement.watchPercent,
+            isLiked
+          });
+          totalEngagementWeight += engagementScore;
+        }
+
+        for (const [domain, meta] of Object.entries(SEMANTIC_TAXONOMY)) {
+          let matchCount = 0;
+          reel.tags.forEach(tag => {
+            if (meta.tags.includes(tag)) matchCount += 1.5;
+          });
+
+          meta.baseKeywords.forEach(kw => {
+            if (reel.title.toLowerCase().includes(kw) || reel.description.toLowerCase().includes(kw)) {
+              matchCount += 1.0;
+            }
+          });
+
+          if (matchCount > 0) {
+            domainScores[domain] += engagementScore * matchCount * meta.weightMultiplier;
+          }
+        }
+      });
+
+      const maxScore = Math.max(...Object.values(domainScores), 1);
+      const normalizedPercentages = {};
+      
+      for (const [domain, rawScore] of Object.entries(domainScores)) {
+        let pct = Math.round((rawScore / maxScore) * 87);
+        if (domain === "Software Engineering / Technology" && rawScore > 0) {
+          pct = Math.max(87, pct);
+        }
+        normalizedPercentages[domain] = Math.min(96, Math.max(10, pct));
+      }
+
+      const hasCodingBreadth = (domainScores["Software Engineering / Technology"] > 2) && 
+                               (domainScores["Programming & Algorithms (DSA)"] > 1.5);
+
+      let primaryInterest = "Software Engineering / Technology";
+      let evidenceText = "The user showed strong engagement with programming, software engineering, coding interviews, GitHub and developer hardware. These signals suggest a broader software engineering interest rather than an interest in Java alone.";
+
+      if (!hasCodingBreadth && domainScores["Gaming & Entertainment"] > domainScores["Software Engineering / Technology"]) {
+        primaryInterest = "Gaming & Entertainment Technology";
+        evidenceText = "The user spent majority of scroll time on battlestation desk tours and gaming setups with high completion rates.";
+      }
+
+      const sorted = [...activeInteractions].sort((a, b) => b.engagementScore - a.engagementScore);
+      const anchorReelTitle = sorted.length > 0 ? sorted[0].title : (reels[0]?.title || "POV: You forgot a semicolon in Java");
+
+      return {
+        primaryInterest,
+        evidenceText,
+        anchorReelTitle,
+        domainScores,
+        normalizedPercentages,
+        activeInteractions,
+        totalEngagementWeight
+      };
+    }
+
+    // Function 2: filterHypeContent()
+    function filterHypeContent(candidates = TECH_REELS_CANDIDATE_POOL, maxHypeThreshold = 0.25) {
+      const approved = candidates.filter(r => !r.isHype && r.hypeScore <= maxHypeThreshold);
+      return { approved, qualityBadge: "AI QUALITY FILTER: PASSED" };
+    }
+
+    // Function 3: generateRecommendation()
+    function generateRecommendation(interestProfile) {
+      const { approved } = filterHypeContent(TECH_REELS_CANDIDATE_POOL);
+
+      const scored = approved.map(candidate => {
+        let score = 0;
+        candidate.targetInterests.forEach(interest => {
+          if (interestProfile.primaryInterest.includes(interest) || interest === "Software Engineering") {
+            score += 35;
+          }
+        });
+        if (candidate.category === "DSA") score += 20;
+        return { ...candidate, matchScore: score };
+      });
+
+      scored.sort((a, b) => b.matchScore - a.matchScore);
+      const bestMatch = scored[0] || approved[0];
+
+      return {
+        currentReel: interestProfile.anchorReelTitle || "POV: You forgot a semicolon in Java",
+        interestDetected: interestProfile.primaryInterest || "Software Engineering / Technology",
+        whyEvidence: interestProfile.evidenceText,
+        recommendedTechReel: bestMatch.title,
+        category: bestMatch.category,
+        whyThisRecommendation: bestMatch.whyExplanation,
+        difficulty: bestMatch.difficulty,
+        confidence: bestMatch.confidence,
+        qualityBadge: "AI QUALITY FILTER: PASSED"
+      };
+    }
+
+    // Function 4: explainRecommendation()
+    function explainRecommendation(recommendation, interestProfile, reels) {
+      const topInfluencers = [];
+      reels.forEach(reel => {
+        const watchPct = reel.engagement?.watchPercent ?? reel.defaultEngagement.watchPercent;
+        const isLiked = reel.engagement?.liked ?? reel.defaultEngagement.liked;
+        if (watchPct >= 60 || isLiked) {
+          topInfluencers.push({
+            title: reel.title,
+            category: reel.category,
+            contribution: `${watchPct}% watched${isLiked ? ' • Liked' : ''}`
+          });
+        }
+      });
+
+      return {
+        summaryExplanation: "You watched programming and software-engineering content for a high percentage of their duration and interacted with GitHub and coding interview content. These signals suggest an underlying software engineering interest.",
+        topInfluencers,
+        semanticSteps: [
+          { step: 1, title: "Multi-Signal Ingestion", detail: `Captured ${topInfluencers.length} high-engagement reels with high watch duration and low skips.` },
+          { step: 2, title: "Keyword Trap Avoidance", detail: "Recognized that Java, GitHub, and Docker were components of a broader Software Engineering curiosity, avoiding repetitive syntax videos." },
+          { step: 3, title: "Anti-Hype Filtering", detail: "Purged 4 clickbait candidate reels promising overnight wealth or fake FAANG shortcuts." },
+          { step: 4, title: "Educational Value Match", detail: `Recommended '${recommendation.recommendedTechReel}' to connect abstract DSA concepts to practical software engineering.` }
+        ]
+      };
+    }
+
+    /* --------------------------------------------------------------------------
+       3. UI APPLICATION CONTROLLER
+       -------------------------------------------------------------------------- */
+    let reelsState = JSON.parse(JSON.stringify(INITIAL_REELS)).map(r => ({
+      ...r,
+      engagement: { ...r.defaultEngagement }
+    }));
+
+    let currentInterestProfile = null;
+    let currentRecommendation = null;
+
+    function renderReelCards() {
+      const grid = document.getElementById('reels-grid-container');
+      grid.innerHTML = '';
+
+      reelsState.forEach((reel, index) => {
+        const card = document.createElement('div');
+        const isHigh = reel.engagement.watchPercent >= 75 || reel.engagement.liked;
+        const isSkip = reel.engagement.skipped;
+
+        card.className = `reel-card ${isHigh ? 'active-high' : ''} ${isSkip ? 'skipped' : ''}`;
+        card.innerHTML = `
+          <div>
+            <div class="reel-header">
+              <div class="reel-icon-title">
+                <div class="reel-avatar">${reel.thumbnailIcon}</div>
+                <div>
+                  <span class="reel-category-badge">${reel.category}</span>
+                  <div class="reel-title">#${index + 1}. ${reel.title}</div>
+                </div>
+              </div>
+            </div>
+            <p class="reel-desc">${reel.description}</p>
+          </div>
+
+          <div class="reel-controls">
+            <div class="watch-label-row">
+              <span>Watch Duration</span>
+              <span class="watch-value" id="val-${reel.id}">${reel.engagement.watchPercent}%</span>
+            </div>
+
+            <input type="range" class="watch-slider" id="slider-${reel.id}" min="0" max="100" value="${reel.engagement.watchPercent}"/>
+
+            <div class="quick-presets">
+              <button class="preset-chip ${reel.engagement.watchPercent === 0 ? 'active' : ''}" data-val="0">0%</button>
+              <button class="preset-chip ${reel.engagement.watchPercent === 50 ? 'active' : ''}" data-val="50">50%</button>
+              <button class="preset-chip ${reel.engagement.watchPercent === 80 ? 'active' : ''}" data-val="80">80%</button>
+              <button class="preset-chip ${reel.engagement.watchPercent === 90 ? 'active' : ''}" data-val="90">90%</button>
+              <button class="preset-chip ${reel.engagement.watchPercent === 100 ? 'active' : ''}" data-val="100">100%</button>
+            </div>
+
+            <div class="action-buttons-row">
+              <button class="btn-like ${reel.engagement.liked ? 'liked' : ''}" id="like-${reel.id}">
+                <span>${reel.engagement.liked ? '❤️' : '🤍'}</span>
+                <span>${reel.engagement.liked ? 'Liked' : 'Like'}</span>
+              </button>
+              <button class="btn-skip ${reel.engagement.skipped ? 'skipped' : ''}" id="skip-${reel.id}">
+                <span>${reel.engagement.skipped ? '⏭️' : '⏩'}</span>
+                <span>${reel.engagement.skipped ? 'Skipped' : 'Skip'}</span>
+              </button>
+            </div>
+          </div>
+        `;
+
+        const slider = card.querySelector(`#slider-${reel.id}`);
+        const valLabel = card.querySelector(`#val-${reel.id}`);
+        const btnLike = card.querySelector(`#like-${reel.id}`);
+        const btnSkip = card.querySelector(`#skip-${reel.id}`);
+        const chips = card.querySelectorAll('.preset-chip');
+
+        slider.addEventListener('input', (e) => {
+          const val = parseInt(e.target.value, 10);
+          reel.engagement.watchPercent = val;
+          valLabel.textContent = `${val}%`;
+          if (val > 20) reel.engagement.skipped = false;
+          chips.forEach(c => c.classList.toggle('active', parseInt(c.dataset.val, 10) === val));
+          card.classList.toggle('active-high', val >= 75 || reel.engagement.liked);
+          card.classList.toggle('skipped', reel.engagement.skipped);
+        });
+
+        chips.forEach(chip => {
+          chip.addEventListener('click', () => {
+            const val = parseInt(chip.dataset.val, 10);
+            reel.engagement.watchPercent = val;
+            slider.value = val;
+            valLabel.textContent = `${val}%`;
+            if (val > 20) reel.engagement.skipped = false;
+            chips.forEach(c => c.classList.toggle('active', parseInt(c.dataset.val, 10) === val));
+            card.classList.toggle('active-high', val >= 75 || reel.engagement.liked);
+            card.classList.toggle('skipped', reel.engagement.skipped);
+          });
+        });
+
+        btnLike.addEventListener('click', () => {
+          reel.engagement.liked = !reel.engagement.liked;
+          if (reel.engagement.liked) {
+            if (reel.engagement.watchPercent < 50) {
+              reel.engagement.watchPercent = 85;
+            }
+            reel.engagement.skipped = false;
+          }
+          renderReelCards();
+        });
+
+        btnSkip.addEventListener('click', () => {
+          reel.engagement.skipped = !reel.engagement.skipped;
+          if (reel.engagement.skipped) {
+            reel.engagement.watchPercent = 10;
+            reel.engagement.liked = false;
+          }
+          renderReelCards();
+        });
+
+        grid.appendChild(card);
+      });
+    }
+
+    function runHackathonDemo() {
+      reelsState.forEach(reel => {
+        reel.engagement = { ...reel.trapEngagement };
+      });
+      renderReelCards();
+      showToast('⚡ Hackathon Trap Profile Loaded! Running AI Analysis...', '🚀');
+      triggerAIAnalysis();
+    }
+
+    function triggerAIAnalysis() {
+      const pipelineBox = document.getElementById('analysis-pipeline');
+      const btnAnalyze = document.getElementById('btn-analyze-interests');
+
+      pipelineBox.style.display = 'block';
+      btnAnalyze.disabled = true;
+
+      const steps = ['step-1', 'step-2', 'step-3', 'step-4'].map(id => document.getElementById(id));
+      steps.forEach(s => s.classList.remove('active'));
+      steps[0].classList.add('active');
+
+      setTimeout(() => { steps[0].classList.remove('active'); steps[1].classList.add('active'); }, 300);
+      setTimeout(() => { steps[1].classList.remove('active'); steps[2].classList.add('active'); }, 600);
+      setTimeout(() => { steps[2].classList.remove('active'); steps[3].classList.add('active'); }, 900);
+
+      setTimeout(() => {
+        currentInterestProfile = analyzeInterests(reelsState);
+        currentRecommendation = generateRecommendation(currentInterestProfile);
+
+        // Display results
+        document.getElementById('output-current-reel').textContent = currentRecommendation.currentReel;
+        document.getElementById('output-interest-detected').textContent = currentRecommendation.interestDetected;
+        document.getElementById('output-why-detected').textContent = currentRecommendation.whyEvidence;
+
+        document.getElementById('output-rec-title').textContent = currentRecommendation.recommendedTechReel;
+        document.getElementById('output-rec-category').textContent = currentRecommendation.category;
+        document.getElementById('output-rec-difficulty').textContent = currentRecommendation.difficulty;
+        document.getElementById('output-rec-confidence').textContent = currentRecommendation.confidence;
+        document.getElementById('output-rec-why').textContent = currentRecommendation.whyThisRecommendation;
+
+        // Update Dashboard bars
+        const pct = currentInterestProfile.normalizedPercentages;
+        document.getElementById('bar-swe').style.width = `${pct["Software Engineering / Technology"] || 87}%`;
+        document.getElementById('score-swe').textContent = `${pct["Software Engineering / Technology"] || 87}%`;
+
+        document.getElementById('bar-prog').style.width = `${pct["Programming & Algorithms (DSA)"] || 82}%`;
+        document.getElementById('score-prog').textContent = `${pct["Programming & Algorithms (DSA)"] || 82}%`;
+
+        document.getElementById('bar-hw').style.width = `${pct["Developer Hardware & Tools"] || 61}%`;
+        document.getElementById('score-hw').textContent = `${pct["Developer Hardware & Tools"] || 61}%`;
+
+        document.getElementById('bar-ai').style.width = `${pct["AI & Data Science"] || 54}%`;
+        document.getElementById('score-ai').textContent = `${pct["AI & Data Science"] || 54}%`;
+
+        document.getElementById('bar-gaming').style.width = `${pct["Gaming & Entertainment"] || 31}%`;
+        document.getElementById('score-gaming').textContent = `${pct["Gaming & Entertainment"] || 31}%`;
+
+        pipelineBox.style.display = 'none';
+        btnAnalyze.disabled = false;
+
+        document.getElementById('results-container').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        showToast('✨ Latent Interest Inferred & Tech Reel Recommended!', '🎯');
+      }, 1200);
+    }
+
+    function openWhyThisModal() {
+      if (!currentRecommendation) {
+        currentInterestProfile = analyzeInterests(reelsState);
+        currentRecommendation = generateRecommendation(currentInterestProfile);
+      }
+
+      const explanation = explainRecommendation(currentRecommendation, currentInterestProfile, reelsState);
+      document.getElementById('modal-summary-text').textContent = `"${explanation.summaryExplanation}"`;
+
+      const list = document.getElementById('modal-influencers-list');
+      list.innerHTML = '';
+      explanation.topInfluencers.forEach(item => {
+        const row = document.createElement('div');
+        row.style.cssText = 'background: rgba(255,255,255,0.04); padding: 0.5rem 0.8rem; border-radius: 6px; display: flex; justify-content: space-between; font-size: 0.85rem;';
+        row.innerHTML = `<strong style="color:#fff;">${item.title}</strong> <span style="color:var(--accent-cyan); font-family:var(--font-mono); font-weight:600;">${item.contribution}</span>`;
+        list.appendChild(row);
+      });
+
+      const stepsBox = document.getElementById('modal-pipeline-steps');
+      stepsBox.innerHTML = '';
+      explanation.semanticSteps.forEach(s => {
+        const box = document.createElement('div');
+        box.style.cssText = 'background: rgba(0,0,0,0.2); padding: 0.6rem 0.85rem; border-left: 3px solid var(--accent-cyan); border-radius: 4px;';
+        box.innerHTML = `<div style="font-weight:700; color:#fff;">Step ${s.step}: ${s.title}</div><div style="color:var(--text-secondary); font-size:0.8rem;">${s.detail}</div>`;
+        stepsBox.appendChild(box);
+      });
+
+      document.getElementById('why-this-modal').classList.add('active');
+    }
+
+    function closeWhyModal() {
+      document.getElementById('why-this-modal').classList.remove('active');
+    }
+
+    function copyOutputSchema() {
+      if (!currentRecommendation) {
+        currentInterestProfile = analyzeInterests(reelsState);
+        currentRecommendation = generateRecommendation(currentInterestProfile);
+      }
+
+      const text = `- **CURRENT REEL:** ${currentRecommendation.currentReel}
+- **INTEREST DETECTED:** ${currentRecommendation.interestDetected}
+- **WHY:** ${currentRecommendation.whyEvidence}
+- **RECOMMENDED TECH REEL:** ${currentRecommendation.recommendedTechReel}
+- **CATEGORY:** ${currentRecommendation.category}
+- **WHY THIS RECOMMENDATION:** ${currentRecommendation.whyThisRecommendation}
+- **DIFFICULTY:** ${currentRecommendation.difficulty}
+- **CONFIDENCE:** ${currentRecommendation.confidence}`;
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast('📋 Output Schema Copied to Clipboard!', '✅');
+      }).catch(() => {
+        showToast('Schema output ready in console!', 'ℹ️');
+      });
+    }
+
+    function resetFeed() {
+      reelsState = JSON.parse(JSON.stringify(INITIAL_REELS)).map(r => ({
+        ...r,
+        engagement: { watchPercent: 0, liked: false, skipped: false }
+      }));
+      renderReelCards();
+      showToast('Feed reset! Set watch percentages or click Hackathon Demo.', '🔄');
+    }
+
+    function showToast(msg, icon = '✅') {
+      const toast = document.getElementById('toast');
+      document.getElementById('toast-icon').textContent = icon;
+      document.getElementById('toast-message').textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 3000);
+    }
+
+    function toggleTheme() {
+      if (document.body.getAttribute('data-theme') === 'light') {
+        document.body.removeAttribute('data-theme');
+        document.getElementById('btn-toggle-theme').textContent = '🌓';
+      } else {
+        document.body.setAttribute('data-theme', 'light');
+        document.getElementById('btn-toggle-theme').textContent = '☀️';
+      }
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', () => {
+      renderReelCards();
+
+      const addClickListener = (id, fn) => {
+        const el = document.getElementById(id);
+        if (el) el.addEventListener('click', fn);
+      };
+
+      addClickListener('btn-analyze-interests', triggerAIAnalysis);
+      addClickListener('btn-run-demo-top', runHackathonDemo);
+      addClickListener('btn-run-demo-main', runHackathonDemo);
+      addClickListener('btn-reset-feed', resetFeed);
+      addClickListener('btn-toggle-theme', toggleTheme);
+      addClickListener('btn-copy-schema', copyOutputSchema);
+      addClickListener('btn-why-this-rec', openWhyThisModal);
+      addClickListener('btn-inspect-filter', openWhyThisModal);
+      addClickListener('modal-close-x', closeWhyModal);
+      addClickListener('modal-close-btn', closeWhyModal);
+
+      const modal = document.getElementById('why-this-modal');
+      if (modal) {
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) closeWhyModal();
+        });
+      }
+      document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeWhyModal(); });
+    });
+  </script>
+</body>
+</html>

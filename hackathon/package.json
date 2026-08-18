@@ -1,0 +1,21 @@
+{
+  "name": "ai-tech-reel-recommender",
+  "version": "1.0.0",
+  "description": "AI Recommender system for inferring student latent interests from short-form reels to recommend career-defining tech reels.",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx -y serve .",
+    "dev": "npx -y serve . -l 3000",
+    "open": "powershell -Command \"Start-Process index.html\""
+  },
+  "keywords": [
+    "ai",
+    "recommendation-engine",
+    "hackathon",
+    "semantic-search",
+    "edtech",
+    "rgm-hackathon"
+  ],
+  "author": "RGM Hackathon Team",
+  "license": "MIT"
+}
